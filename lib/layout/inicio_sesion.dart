@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'pantallaInicio.dart';
+
 class PantallaInicioSesion extends StatefulWidget {
   const PantallaInicioSesion({super.key});
 
@@ -8,11 +10,13 @@ class PantallaInicioSesion extends StatefulWidget {
 }
 
 class _PantallaInicioSesionState extends State<PantallaInicioSesion> {
+  final _nombreController = TextEditingController();
   final _correoController = TextEditingController();
   final _contrasenaController = TextEditingController();
 
   @override
   void dispose() {
+    _nombreController.dispose();
     _correoController.dispose();
     _contrasenaController.dispose();
     super.dispose();
@@ -33,17 +37,29 @@ class _PantallaInicioSesionState extends State<PantallaInicioSesion> {
               color: Theme.of(context).colorScheme.primary,
             ),
             const SizedBox(height: 16),
-            const Text(
+            Text(
               'Mercado Campesino',
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              style: Theme.of(context).textTheme.headlineSmall,
             ),
             const SizedBox(height: 8),
-            const Text(
+            Text(
               'Inicia sesión para continuar',
               textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.bodyLarge,
             ),
             const SizedBox(height: 32),
+            TextField(
+              controller: _nombreController,
+              textCapitalization: TextCapitalization.words,
+              decoration: const InputDecoration(
+                labelText: 'Nombre',
+                hintText: 'Tu nombre',
+                prefixIcon: Icon(Icons.person),
+                border: OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: 16),
             TextField(
               controller: _correoController,
               keyboardType: TextInputType.emailAddress,
@@ -67,7 +83,23 @@ class _PantallaInicioSesionState extends State<PantallaInicioSesion> {
             const SizedBox(height: 24),
             ElevatedButton(
               onPressed: () {
-                // La navegación se programa en el paso 7
+                final nombre = _nombreController.text.trim();
+                final correo = _correoController.text.trim();
+                final contrasena = _contrasenaController.text;
+
+                if (nombre.isEmpty || correo.isEmpty || contrasena.isEmpty) {
+                  return;
+                }
+
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => PantallaInicio(
+                      nombre: nombre,
+                      correo: correo,
+                    ),
+                  ),
+                );
               },
               child: const Text('Iniciar sesión'),
             ),

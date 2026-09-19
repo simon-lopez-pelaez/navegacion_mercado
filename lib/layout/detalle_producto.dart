@@ -77,7 +77,7 @@ class _DetalleProductoState extends State<DetalleProducto> {
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () =>Navigator.pushReplacementNamed(context, '/'),;
+          onPressed: () => Navigator.pop(context),
         ),
         title: Text(productor.nombre),
       ),
@@ -96,34 +96,68 @@ class _DetalleProductoState extends State<DetalleProducto> {
                 itemBuilder: (context, index) {
                   final producto = productor.productos[index];
                   final cantidad = _cantidades[index];
-                  return Row(
-                    children: [
-                      Text(producto.emoji, style: const TextStyle(fontSize: 28)),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(producto.nombre, style: const TextStyle(fontWeight: FontWeight.w600)),
-                            Text(
-                              '\$${producto.precio.toStringAsFixed(0)} / ${producto.unidad}',
-                              style: TextStyle(color: Colors.grey[600], fontSize: 13),
+                  return Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 8,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context)
+                          .colorScheme
+                          .primary
+                          .withValues(alpha: 0.08),
+                      border: Border.all(
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 8,
+                          height: 8,
+                          decoration: const BoxDecoration(
+                            color: Color(0xFFD49A45),
+                            shape: BoxShape.circle,
+                          ),
+                        ),
+                        const SizedBox(width: 12),
+                        Text(producto.emoji, style: const TextStyle(fontSize: 28)),
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                producto.nombre,
+                                style: Theme.of(context).textTheme.titleMedium,
+                              ),
+                              Text(
+                                '\$${producto.precio.toStringAsFixed(0)} / ${producto.unidad}',
+                                style: TextStyle(color: Colors.grey[600], fontSize: 13),
+                              ),
+                            ],
+                          ),
+                        ),
+                        if (cantidad > 0) ...[
+                          IconButton(
+                            icon: Icon(
+                              Icons.remove_circle_outline,
+                              color: Colors.red,
                             ),
-                          ],
-                        ),
-                      ),
-                      if (cantidad > 0) ...[
+                            onPressed: () => _eliminar(index),
+                          ),
+                          Text('$cantidad', style: const TextStyle(fontWeight: FontWeight.bold)),
+                        ],
                         IconButton(
-                          icon: const Icon(Icons.remove_circle_outline, color: Colors.red),
-                          onPressed: () => _eliminar(index),
+                          icon: Icon(
+                            Icons.add_circle_outline,
+                            color: Colors.green,
+                          ),
+                          onPressed: () => _agregar(index),
                         ),
-                        Text('$cantidad', style: const TextStyle(fontWeight: FontWeight.bold)),
                       ],
-                      IconButton(
-                        icon: const Icon(Icons.add_circle_outline, color: Colors.green),
-                        onPressed: () => _agregar(index),
-                      ),
-                    ],
+                    ),
                   );
                 },
               ),
@@ -131,7 +165,16 @@ class _DetalleProductoState extends State<DetalleProducto> {
             const Divider(height: 24),
             Text(
               'Total: \$${_total.toStringAsFixed(0)}',
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+            const SizedBox(height: 16),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton.icon(
+                onPressed: () {},
+                icon: const Icon(Icons.shopping_bag_outlined),
+                label: const Text('Comprar'),
+              ),
             ),
           ],
         ),
