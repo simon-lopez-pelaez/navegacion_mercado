@@ -10,6 +10,7 @@ class PantallaInicioSesion extends StatefulWidget {
 class _PantallaInicioSesionState extends State<PantallaInicioSesion> {
   final _correoController = TextEditingController();
   final _contrasenaController = TextEditingController();
+  bool _ocultarContrasena = true;
 
   @override
   void dispose() {
@@ -33,10 +34,13 @@ class _PantallaInicioSesionState extends State<PantallaInicioSesion> {
               color: Theme.of(context).colorScheme.primary,
             ),
             const SizedBox(height: 16),
-            const Text(
+            Text(
               'Mercado Campesino',
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              style: Theme.of(context)
+                  .textTheme
+                  .headlineSmall
+                  ?.copyWith(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
             const Text(
@@ -57,11 +61,23 @@ class _PantallaInicioSesionState extends State<PantallaInicioSesion> {
             const SizedBox(height: 16),
             TextField(
               controller: _contrasenaController,
-              obscureText: true,
-              decoration: const InputDecoration(
+              obscureText: _ocultarContrasena,
+              decoration: InputDecoration(
                 labelText: 'Contraseña',
-                prefixIcon: Icon(Icons.lock),
-                border: OutlineInputBorder(),
+                prefixIcon: const Icon(Icons.lock),
+                border: const OutlineInputBorder(),
+                suffixIcon: IconButton(
+                  icon: Icon(
+                    _ocultarContrasena
+                        ? Icons.visibility
+                        : Icons.visibility_off,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      _ocultarContrasena = !_ocultarContrasena;
+                    });
+                  },
+                ),
               ),
             ),
             const SizedBox(height: 24),
@@ -70,6 +86,17 @@ class _PantallaInicioSesionState extends State<PantallaInicioSesion> {
                 // La navegación se programa en el paso 7
               },
               child: const Text('Iniciar sesión'),
+            ),
+            const SizedBox(height: 8),
+            TextButton(
+              onPressed: () {},
+              child: const Text('¿No tienes cuenta? Regístrate'),
+            ),
+            const SizedBox(height: 8),
+            OutlinedButton.icon(
+              onPressed: () {},
+              icon: const Icon(Icons.g_mobiledata),
+              label: const Text('Continuar con Google'),
             ),
           ],
         ),
