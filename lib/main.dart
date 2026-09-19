@@ -14,6 +14,7 @@ class MainApp extends StatelessWidget {
     return const MaterialApp(
       
       title: 'Mercado Campesino',
+      debugShowCheckedModeBanner: false,
       home: PantallaInicioSesion(),
     );
   }
