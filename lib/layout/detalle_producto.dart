@@ -77,7 +77,7 @@ class _DetalleProductoState extends State<DetalleProducto> {
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () =>Navigator.pushReplacementNamed(context, '/'),;
+          onPressed: () =>Navigator.pushReplacementNamed(context, 'main'),
         ),
         title: Text(productor.nombre),
       ),
@@ -139,3 +139,4 @@ class _DetalleProductoState extends State<DetalleProducto> {
     );
   }
 }
+
