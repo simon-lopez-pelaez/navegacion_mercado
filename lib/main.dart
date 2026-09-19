@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'layout/pantallaInicio.dart';
+
 void main() {
   runApp(const MainApp());
 }
@@ -10,11 +12,9 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      
       title: 'Mercado Campesino',
-      home: const Scaffold(
-        body: Center(child: Text('Mercado Campesino')),
-      ),
+      debugShowCheckedModeBanner: false,
+      home: PantallaInicio(),
     );
   }
 }

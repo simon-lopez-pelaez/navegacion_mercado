@@ -7,6 +7,7 @@ class PantallaInicio extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 250, 255, 147),
         title: const Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
@@ -40,8 +41,16 @@ class PantallaInicio extends StatelessWidget {
                   leading: const Icon(Icons.person),
                   title: Text(productor.$1),
                   subtitle: Text(
-                    'Vereda: ${productor.$2} · Distancia: ${productor.$3}',
+                    'Correo: ${productor.$1} · Descripcion: ${productor.$2} · Distancia: ${productor.$3}',
                   ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const PantallaDetalle(),
+                      ),
+                    );
+                  },
                 );
               },
             ),
@@ -55,26 +64,31 @@ class PantallaInicio extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Inicio',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_cart),
-            label: 'Carrito',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Perfil',
-          ),
-        ],
-        currentIndex: 0,
-        onTap: (index) {
-          // Acción al seleccionar un elemento del BottomNavigationBar
-        },
-      )
+      bottomNavigationBar: BottomAppBar(
+        child: ListTile(
+          leading: const Icon(Icons.logout),
+          title: const Text('Cerrar sesión'),
+          onTap: () {
+            Navigator.pushNamed(context, '/cerrar-sesion');
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class PantallaDetalle extends StatelessWidget {
+  const PantallaDetalle({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Detalle del productor'),
+      ),
+      body: const Center(
+        child: Text('Próximamente'),
+      ),
     );
   }
 }
