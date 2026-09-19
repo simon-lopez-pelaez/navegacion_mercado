@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:navegacion_mercado/layout/inicio_sesion.dart';
+
 
 void main() {
   runApp(const MainApp());
@@ -12,9 +14,8 @@ class MainApp extends StatelessWidget {
     return const MaterialApp(
       
       title: 'Mercado Campesino',
-      home: const Scaffold(
-        body: Center(child: Text('Mercado Campesino')),
-      ),
+      debugShowCheckedModeBanner: false,
+      home: PantallaInicioSesion(),
     );
   }
 }
