@@ -9,10 +9,12 @@ class PantallaInicioSesion extends StatefulWidget {
 
 class _PantallaInicioSesionState extends State<PantallaInicioSesion> {
   final _correoController = TextEditingController();
+  final _contrasenaController = TextEditingController();
 
   @override
   void dispose() {
     _correoController.dispose();
+    _contrasenaController.dispose();
     super.dispose();
   }
 
@@ -51,6 +53,23 @@ class _PantallaInicioSesionState extends State<PantallaInicioSesion> {
                 prefixIcon: Icon(Icons.email),
                 border: OutlineInputBorder(),
               ),
+            ),
+            const SizedBox(height: 16),
+            TextField(
+              controller: _contrasenaController,
+              obscureText: true,
+              decoration: const InputDecoration(
+                labelText: 'Contraseña',
+                prefixIcon: Icon(Icons.lock),
+                border: OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: 24),
+            ElevatedButton(
+              onPressed: () {
+                // La navegación se programa en el paso 7
+              },
+              child: const Text('Iniciar sesión'),
             ),
           ],
         ),
